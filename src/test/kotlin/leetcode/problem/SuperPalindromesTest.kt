@@ -12,7 +12,8 @@ class SuperPalindromesTest : StringSpec({
             row("4", "1000", 4),
             row("1", "2", 1),
             row("40000000000000000", "50000000000000000", 2),
-            row("9944094036", "431375128285413", 27)
+            row("9944094036", "431375128285413", 27),
+            row("38455498359", "999999999999999999", 45)
         ) { left, right, expected ->
             SuperPalindromes.superpalindromesInRange(left, right) shouldBe expected
         }
