@@ -11,13 +11,10 @@ class SuperPalindromesTest : StringSpec({
         forAll(
             row("4", "1000", 4),
             row("1", "2", 1),
-            row("40000000000000000", "50000000000000000", 2)
+            row("40000000000000000", "50000000000000000", 2),
+            row("9944094036", "431375128285413", 27)
         ) { left, right, expected ->
             SuperPalindromes.superpalindromesInRange(left, right) shouldBe expected
         }
-    }
-
-    "test" {
-        SuperPalindromes.superpalindromesInRange("9944094036", "431375128285413").run { println(this) }
     }
 })

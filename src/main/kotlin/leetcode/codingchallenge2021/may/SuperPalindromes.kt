@@ -8,12 +8,13 @@ object SuperPalindromes {
     fun superpalindromesInRange(left: String, right: String): Int {
         val head = ceil(sqrt(left.toDouble())).toInt()
         val last = floor(sqrt(right.toDouble())).toInt()
-        return (head..last).fold(0) { acc, i ->
-            val x = i.toLong() * i
-            if (isPalindrome(i.toString()) && isPalindrome(x.toString())) {
-                acc + 1
-            } else acc
+        var i = head
+        var count = 0
+        while (i <= last) {
+            if (isPalindrome(i.toString()) && isPalindrome((i.toLong() * i).toString())) count += 1
+            i++
         }
+        return count
     }
 
     private fun isPalindrome(str: String): Boolean =
