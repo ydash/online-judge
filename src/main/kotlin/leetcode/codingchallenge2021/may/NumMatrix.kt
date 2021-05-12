@@ -1,11 +1,11 @@
 package leetcode.codingchallenge2021.may
 
 class NumMatrix(matrix: Array<IntArray>) {
-    private val maxRowInd = matrix.size
-    private val maxColInd = matrix[0].size
-    val dp = Array(maxRowInd + 1) { IntArray(maxColInd + 1) }.also {
-        (0 until maxRowInd).forEach { i ->
-            (0 until maxColInd).forEach { j ->
+    private val rowSize = matrix.size
+    private val colSize = matrix[0].size
+    private val dp = Array(rowSize + 1) { IntArray(colSize + 1) }.also {
+        (0 until rowSize).forEach { i ->
+            (0 until colSize).forEach { j ->
                 it[i + 1][j + 1] = matrix[i][j] + it[i + 1][j] + it[i][j + 1] - it[i][j]
             }
         }
