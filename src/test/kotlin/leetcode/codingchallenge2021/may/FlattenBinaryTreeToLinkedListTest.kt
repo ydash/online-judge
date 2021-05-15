@@ -2,6 +2,7 @@ package leetcode.codingchallenge2021.may
 
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
+import leetcode.codingchallenge2021.may.FlattenBinaryTreeToLinkedList.toLinkedList
 
 class FlattenBinaryTreeToLinkedListTest : StringSpec({
     val one = TreeNode(1)
@@ -22,7 +23,7 @@ class FlattenBinaryTreeToLinkedListTest : StringSpec({
             }
         }
 
-        val actual = FlattenBinaryTreeToLinkedList.traversePreOrder(root).toString()
+        val actual = root.toLinkedList().toString()
 
         actual shouldBe "1,null,2,null,3,null,4,null,5,null,6,null,null"
     }

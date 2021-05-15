@@ -3,23 +3,23 @@ package leetcode.codingchallenge2021.may
 object FlattenBinaryTreeToLinkedList {
     fun flatten(root: TreeNode?): Unit {
         root?.run {
-            traversePreOrder(this)
+            this.toLinkedList()
         }
     }
 
-    fun traversePreOrder(root: TreeNode): TreeNode {
-        if (!root.isLeaf()) {
-            val tmp = TreeNode(root.`val`)
-            root.left?.run {
-                tmp.right = traversePreOrder(this)
+    fun TreeNode.toLinkedList(): TreeNode {
+        if (!isLeaf()) {
+            val tmp = TreeNode(`val`)
+            left?.run {
+                tmp.right = this.toLinkedList()
             }
-            root.right?.run {
-                tmp.getMax().right = traversePreOrder(this)
+            right?.run {
+                tmp.getMax().right = this.toLinkedList()
             }
-            root.left = tmp.left
-            root.right = tmp.right
+            left = tmp.left
+            right = tmp.right
         }
-        return root
+        return this
     }
 
     private fun TreeNode.isLeaf(): Boolean = this.left == null && this.right == null
