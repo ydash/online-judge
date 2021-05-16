@@ -16,14 +16,3 @@ object FlattenBinaryTreeToLinkedList {
 
     private fun TreeNode.getMaxNode(): TreeNode = this.right?.getMaxNode() ?: this
 }
-
-class TreeNode(var `val`: Int) {
-    var left: TreeNode? = null
-    var right: TreeNode? = null
-
-    override fun toString(): String {
-        val leftStr = this.left.toString() ?: "null"
-        val rightStr = this.right.toString() ?: "null"
-        return "${`val`},$leftStr,$rightStr"
-    }
-}
