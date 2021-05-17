@@ -1,21 +1,24 @@
 package leetcode.codingchallenge2021.may
 
+private const val MAX_SIZE = 1000
+
 class LongestStringChain {
-    private val cache = mutableMapOf<Int, Int>()
+    private val cache = Array(MAX_SIZE + 1) { 0 }
 
     fun longestStrChain(words: Array<String>): Int {
         words.sortBy { it.length }
         return words.indices.maxOf { count(it, words) }
     }
 
-    private fun count(i: Int, words: Array<String>): Int = cache.getOrElse(i) {
-        (((i + 1 until words.size)
+    private fun count(i: Int, words: Array<String>): Int = when (val c = cache[i]) {
+        0 -> (((i + 1 until words.size)
             .filter { canChain(words[i], words[it]) }
             .maxOfOrNull { count(it, words) } ?: 0
                 ) + 1)
             .also {
-                cache[i] = it
+                this.cache[i] = it
             }
+        else -> c
     }
 
     fun canChain(word1: String, word2: String): Boolean =
