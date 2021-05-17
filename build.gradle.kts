@@ -1,6 +1,6 @@
 plugins {
     kotlin("jvm") version "1.5.0"
-    id("io.gitlab.arturbosch.detekt") version "1.16.0"
+    id("io.gitlab.arturbosch.detekt") version "1.17.0"
 }
 
 group = "org.example"
@@ -20,15 +20,21 @@ dependencies {
     }
 
     // detekt
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.16.0")
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.17.0")
 }
 
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
+tasks {
+    withType<Test> {
+        useJUnitPlatform()
+    }
+    withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
+        jvmTarget = "11"
+    }
 
-detekt {
-    toolVersion = "1.16.0"
-//    config = files("config/detekt/detekt.yml")
-    buildUponDefaultConfig = true
+    detekt {
+        toolVersion = "1.17.0"
+        config = files("config/detekt/detekt.yml")
+        buildUponDefaultConfig = true
+        autoCorrect = true
+    }
 }

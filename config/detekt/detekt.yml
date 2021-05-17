@@ -1,0 +1,4 @@
+naming:
+  ConstructorParameterNaming:
+    excludes:
+      - '**/TreeNode.kt'
