@@ -20,10 +20,10 @@ class LongestStringChainTest : StringSpec({
 
     "given two strings, return true if one is a predecessor of the other" {
         forAll(
-            row("bdca", "bda", true),
-            row("ab", "a", true),
+            row("bda", "bdca", true),
+            row("a", "ab", true),
             row("a", "b", false),
-            row("bda", "bdca", false),
+            row("bda", "bdca", true),
             row("abb", "ad", false),
             row("abc", "bdef", false),
             row("abc", "abc", false)
