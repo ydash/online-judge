@@ -26,5 +26,4 @@ object BinaryTreeCameras {
         data class MONITORED(override val count: Int) : Status(count)
         data class UNMONITORED(override val count: Int) : Status(count)
     }
-
 }

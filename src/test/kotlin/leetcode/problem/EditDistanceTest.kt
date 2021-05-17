@@ -16,5 +16,4 @@ class EditDistanceTest : StringSpec({
             EditDistance().minDistance(str1, str2) shouldBe expected
         }
     }
-
 })

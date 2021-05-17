@@ -3,7 +3,7 @@ package aoj
 import java.io.PrintWriter
 
 object Template {
-    val read = { readLine() ?: throw RuntimeException("failed to read data.") }
+    val read = { readLine() ?: throw IllegalArgumentException("failed to read data.") }
     val readPair =
         { read().split(" ").map { it.toInt() }.let { Pair(it[0], it[1]) } }
     val readInt = { read().toInt() }
@@ -20,4 +20,3 @@ object Template {
         pw.flush()
     }
 }
-

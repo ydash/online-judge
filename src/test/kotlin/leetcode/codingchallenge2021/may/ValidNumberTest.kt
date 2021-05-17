@@ -80,5 +80,4 @@ class ValidNumberTest : StringSpec({
             ValidNumber.isDecimal(input) shouldBe output
         }
     }
-
 })

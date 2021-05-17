@@ -34,5 +34,4 @@ object ValidNumber {
         '+', '-' -> str.drop(1)
         else -> str
     }
-
 }
