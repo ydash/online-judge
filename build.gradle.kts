@@ -25,6 +25,7 @@ dependencies {
 
 tasks {
     withType<Test> {
+        dependsOn(detekt)
         useJUnitPlatform()
     }
     withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
