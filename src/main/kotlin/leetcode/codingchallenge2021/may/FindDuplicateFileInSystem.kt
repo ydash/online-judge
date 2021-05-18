@@ -10,9 +10,9 @@ object FindDuplicateFileInSystem {
                 val (x, y) = Pair(file.lastIndexOf('('), file.lastIndexOf(')'))
                 val content = file.substring(x + 1, y)
                 val fileName = file.substring(0, x)
-                when (cache.containsKey(content)) {
-                    false -> cache += (content to mutableListOf("$dir/$fileName"))
-                    true -> cache[content]!! += "$dir/$fileName"
+                when (val acc = cache[content]) {
+                    null -> cache += (content to mutableListOf("$dir/$fileName"))
+                    else -> acc += "$dir/$fileName"
                 }
             }
         }
