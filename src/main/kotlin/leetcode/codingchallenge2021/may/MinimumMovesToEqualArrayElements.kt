@@ -6,8 +6,6 @@ object MinimumMovesToEqualArrayElements {
     fun minMoves2(nums: IntArray): Int {
         val goal = nums.sortedArray()[nums.size / 2]
 
-        return nums.fold(0) { acc, i ->
-            acc + (goal - i).absoluteValue
-        }
+        return nums.sumOf { (goal - it).absoluteValue }
     }
 }
