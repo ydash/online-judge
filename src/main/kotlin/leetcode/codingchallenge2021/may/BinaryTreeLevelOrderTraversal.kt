@@ -13,8 +13,8 @@ object BinaryTreeLevelOrderTraversal {
 
             current.forEach {
                 tmp += it.`val`
-                it.left?.also { l -> next += l }
-                it.right?.also { r -> next += r }
+                it.left?.let { l -> next += l }
+                it.right?.let { r -> next += r }
             }
             acc += tmp
             current = next
