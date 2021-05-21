@@ -1,6 +1,5 @@
 package leetcode.codingchallenge2021.may
 
-
 private const val LENGTH_OF_A_TO_Z = 'z' - 'a' + 1
 
 object FindAndReplacePatternSolution {
