@@ -2,3 +2,13 @@ naming:
   ConstructorParameterNaming:
     excludes:
       - '**/TreeNode.kt'
+
+formatting:
+  MaximumLineLength:
+    excludes:
+      - '**/*Test.kt'
+
+style:
+  MaxLineLength:
+    excludes:
+      - '**/*Test.kt'
