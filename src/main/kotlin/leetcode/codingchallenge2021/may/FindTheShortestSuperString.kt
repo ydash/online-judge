@@ -1,45 +1,44 @@
 package leetcode.codingchallenge2021.may
 
 object FindTheShortestSuperString {
-    fun shortestSuperstring(words: Array<String>): String {
-        return words.indices.toList().permutation().flatMap { p ->
-            p.drop(1).fold(listOf(words[p[0]])) { acc, i ->
-                acc.flatMap { merge(it, words[i]) }
-            }
-        }.minByOrNull { it.length }!!
-    }
+    fun shortestSuperstring(words: Array<String>): String = greedy(words.toSet())
 
-    fun merge(str1: String, str2: String): List<String> {
-        val buf = mutableListOf("$str1$str2", "$str2$str1")
-        if (str1.contains(str2) || str2.contains(str1)) buf += str1
-        for (i in 1..minOf(str1.length, str2.length)) {
-            if (str1.substring(str1.length - i) == str2.substring(0, i)) buf += "$str1${str2.drop(i)}"
-            if (str1.substring(0, i) == str2.substring(str2.length - i)) buf += "$str2${str1.drop(i)}"
-        }
-        return buf
-    }
+    fun greedy(words: Set<String>): String =
+        if (words.size <= 1) words.first()
+        else {
+            val m = mutableMapOf<Int, MutableList<Triple<String, Int, Int>>>()
+            val tmp = words.toTypedArray()
 
-    fun List<Int>.permutation(): List<List<Int>> {
-        val buf = mutableListOf<List<Int>>()
-
-        fun generate(n: Int, a: IntArray) {
-            if (n == 1) buf += a.toList()
-            else {
-                for (i in 0 until n) {
-                    generate(n - 1, a)
-                    if (n % 2 == 0) {
-                        val tmp = a[i]
-                        a[i] = a[n - 1]
-                        a[n - 1] = tmp
-                    } else {
-                        val tmp = a[0]
-                        a[0] = a[n - 1]
-                        a[n - 1] = tmp
+            tmp.indices.forEach { i ->
+                ((i + 1)..tmp.lastIndex).forEach { j ->
+                    val (len, str) = overlap(tmp[i], tmp[j])
+                    when (val v = m[len]) {
+                        null -> m += (len to mutableListOf(Triple(str, i, j)))
+                        else -> v += Triple(str, i, j)
                     }
                 }
             }
+
+            val maxOverlap = m.maxByOrNull { it.key }!!.key
+            val threshold = if (maxOverlap >= 2) maxOverlap - 1 else maxOverlap
+            if (maxOverlap == 0) words.joinToString("")
+            else m.filterKeys { it >= threshold }.values.flatten()
+                .map { (str, x, y) -> greedy(words - tmp[x] - tmp[y] + str) }
+                .minByOrNull { it.length }!!
         }
-        generate(this.size, this.toIntArray())
-        return buf
+
+    fun overlap(str1: String, str2: String): Pair<Int, String> {
+        var max = 0
+        var res = "$str1$str2"
+        for (i in 1..minOf(str1.length, str2.length)) {
+            if (str1.substring(str1.length - i) == str2.substring(0, i)) {
+                max = i
+                res = "$str1${str2.drop(i)}"
+            } else if (str1.substring(0, i) == str2.substring(str2.length - i)) {
+                max = i
+                res = "$str2${str1.drop(i)}"
+            }
+        }
+        return Pair(max, res)
     }
 }
