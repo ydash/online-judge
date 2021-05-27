@@ -18,8 +18,7 @@ class SubsetsTest : StringSpec({
             row(intArrayOf(0), listOf(listOf(), listOf(0)))
         ) { input, expected ->
             val actual = SubsetsSolution.subsets(input)
-            actual.toSet().size shouldBe expected.toSet().size
-            actual.all { expected.contains(it) } shouldBe true
+            actual.toSet() shouldBe expected.toSet()
         }
     }
 })
