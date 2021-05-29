@@ -1,7 +1,5 @@
 package leetcode.codingchallenge2021.may
 
-//import kotlin.math.absoluteValue
-
 object NQueens2 {
     fun totalNQueens(n: Int): Int {
         var count = 0
