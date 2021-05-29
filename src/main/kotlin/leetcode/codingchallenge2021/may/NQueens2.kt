@@ -1,25 +1,34 @@
 package leetcode.codingchallenge2021.may
 
-import kotlin.math.absoluteValue
+//import kotlin.math.absoluteValue
 
 object NQueens2 {
     fun totalNQueens(n: Int): Int {
-        var currentStates = (0 until n).map { listOf(Coordinate(0, it)) }
+        var count = 0
+        val occupiedRightDiag = BooleanArray(n * 2 - 1)
+        val occupiedLeftDiag = BooleanArray(n * 2 - 1)
+        val occupidRow = BooleanArray(n)
 
-        (1 until n).forEach { i ->
-            currentStates = currentStates.flatMap { next(n, i, it) }
+        fun backtracking(col: Int) {
+            (0 until n).forEach loop@{ row ->
+                val leftDiag = col + row
+                val rightDiag = n - col + row - 1
+                if (occupidRow[row] || occupiedLeftDiag[leftDiag] || occupiedRightDiag[rightDiag]) return@loop
+                if (col == n - 1) {
+                    count++
+                } else {
+                    occupidRow[row] = true
+                    occupiedLeftDiag[leftDiag] = true
+                    occupiedRightDiag[rightDiag] = true
+                    backtracking(col + 1)
+                    occupidRow[row] = false
+                    occupiedLeftDiag[leftDiag] = false
+                    occupiedRightDiag[rightDiag] = false
+                }
+            }
         }
 
-        return currentStates.size
+        backtracking(0)
+        return count
     }
-
-    fun next(n: Int, x: Int, currentStates: List<Coordinate>): List<List<Coordinate>> =
-        (0 until n).toList().fold(emptyList()) { acc, y ->
-            if (currentStates.all { it.y != y && (it.y - y).absoluteValue != (it.x - x).absoluteValue }) {
-                acc.plusElement(currentStates + Coordinate(x, y))
-            } else acc
-        }
-
 }
-
-data class Coordinate(val x: Int, val y: Int)
