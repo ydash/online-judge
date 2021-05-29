@@ -16,17 +16,4 @@ class NQueens2Test : StringSpec({
             NQueens2.totalNQueens(input) shouldBe output
         }
     }
-
-    "Given coordinates which a queen have already been placed, return the all patterns" {
-        forAll(
-            row(
-                4, 2, listOf(Coordinate(0, 2), Coordinate(1, 0)),
-                listOf(
-                    listOf(Coordinate(0, 2), Coordinate(1, 0), Coordinate(2, 3))
-                )
-            )
-        ) { n, next, currentState, expected ->
-            NQueens2.next(n, next, currentState) shouldBe expected
-        }
-    }
 })
