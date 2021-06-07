@@ -1,4 +1,4 @@
-package leetcode.codingchallenge2021.may
+package leetcode.codingchallenge2021.june
 
 const val DIVISOR = 1000000007
 

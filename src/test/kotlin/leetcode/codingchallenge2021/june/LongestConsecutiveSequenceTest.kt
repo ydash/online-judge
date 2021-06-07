@@ -1,4 +1,4 @@
-package leetcode.codingchallenge2021.may
+package leetcode.codingchallenge2021.june
 
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.data.blocking.forAll

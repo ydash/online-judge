@@ -1,4 +1,4 @@
-package leetcode.codingchallenge2021.may
+package leetcode.codingchallenge2021.june
 
 object MaxAreaOfIslandSolution {
     fun maxAreaOfIsland(grid: Array<IntArray>): Int {
