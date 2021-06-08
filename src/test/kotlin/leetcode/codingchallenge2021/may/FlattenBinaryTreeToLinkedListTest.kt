@@ -3,6 +3,7 @@ package leetcode.codingchallenge2021.may
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import leetcode.codingchallenge2021.may.FlattenBinaryTreeToLinkedList.toLinkedList
+import leetcode.util.TreeNode
 
 class FlattenBinaryTreeToLinkedListTest : StringSpec({
     val one = TreeNode(1)

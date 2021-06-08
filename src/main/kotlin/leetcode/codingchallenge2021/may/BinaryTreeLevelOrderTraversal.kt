@@ -1,5 +1,7 @@
 package leetcode.codingchallenge2021.may
 
+import leetcode.util.TreeNode
+
 object BinaryTreeLevelOrderTraversal {
     fun levelOrder(root: TreeNode?): List<List<Int>> {
         val acc = mutableListOf<List<Int>>()

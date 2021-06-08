@@ -1,5 +1,7 @@
 package leetcode.codingchallenge2021.may
 
+import leetcode.util.TreeNode
+
 object FlattenBinaryTreeToLinkedList {
     fun flatten(root: TreeNode?) {
         root?.toLinkedList()

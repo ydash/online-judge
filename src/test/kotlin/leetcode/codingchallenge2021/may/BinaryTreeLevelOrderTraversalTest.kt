@@ -4,6 +4,7 @@ import io.kotest.core.spec.style.StringSpec
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
 import io.kotest.matchers.shouldBe
+import leetcode.util.TreeNode
 
 class BinaryTreeLevelOrderTraversalTest : StringSpec({
     "Given the root of a binary tree, return the level order traversal of its node's values" {

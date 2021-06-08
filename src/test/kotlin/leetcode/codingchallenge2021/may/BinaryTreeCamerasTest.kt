@@ -4,6 +4,7 @@ import io.kotest.core.spec.style.StringSpec
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
 import io.kotest.matchers.shouldBe
+import leetcode.util.TreeNode
 
 class BinaryTreeCamerasTest : StringSpec({
     "Calculate the minimum number of cameras needed to monitor all nodes of the tree." {

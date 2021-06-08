@@ -1,5 +1,7 @@
 package leetcode.codingchallenge2021.may
 
+import leetcode.util.TreeNode
+
 object BinaryTreeCameras {
     fun minCameraCover(root: TreeNode?): Int =
         setUpCamera(root).let { if (it is Status.UNMONITORED) it.count + 1 else it.count }
