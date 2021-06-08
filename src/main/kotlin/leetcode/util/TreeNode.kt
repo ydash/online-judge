@@ -1,4 +1,4 @@
-package leetcode.codingchallenge2021.may
+package leetcode.util
 
 class TreeNode(var `val`: Int) {
     var left: TreeNode? = null
