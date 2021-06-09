@@ -4,15 +4,16 @@ import java.util.*
 
 object JumpGameVI {
     fun maxResult(nums: IntArray, k: Int): Int {
-        val pq = PriorityQueue(Comparator<IndexedScore> { a, b -> b.score - a.score })
-        pq.add(IndexedScore(0, nums[0]))
+        val deque = ArrayDeque<IndexedScore>()
+        deque.addFirst(IndexedScore(nums.lastIndex, nums.last()))
 
-        (1 until nums.size).forEach { i ->
-            while (pq.peek().index < i - k) pq.poll()
-            pq.add(IndexedScore(i, nums[i] + pq.peek().score))
+        (nums.lastIndex - 1 downTo 0).forEach { i ->
+            while (deque.isNotEmpty() && deque.first.index > i + k) deque.removeFirst()
+            val score = nums[i] + deque.first.score
+            while (deque.isNotEmpty() && deque.last.score < score) deque.removeLast()
+            deque.addLast(IndexedScore(i, score))
         }
-
-        return pq.find { it.index == nums.lastIndex }!!.score
+        return deque.last.score
     }
 
     data class IndexedScore(val index: Int, val score: Int)
