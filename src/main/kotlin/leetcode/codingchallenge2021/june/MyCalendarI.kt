@@ -1,12 +1,21 @@
 package leetcode.codingchallenge2021.june
 
+import java.util.*
+
 class MyCalendarI {
-    data class Range(val start: Int, val end: Int)
 
-    private val intervalList = mutableListOf<Range>()
+    private val intervals = TreeMap<Int, Int>()
 
-    fun book(start: Int, end: Int): Boolean =
-        (intervalList.isEmpty() || intervalList.all { range -> (end <= range.start || range.end <= start) }).also {
-            if (it) intervalList += Range(start, end)
-        }
+    fun book(start: Int, end: Int): Boolean {
+        val prev = intervals.floorEntry(start)
+        val next = intervals.ceilingEntry(start)
+        return if ((prev == null || prev.end() <= start) && (next == null || end <= next.start())) {
+            intervals += start to end
+            true
+        } else false
+    }
 }
+typealias Range = Map.Entry<Int, Int>
+
+fun Range.start() = this.key
+fun Range.end() = this.value
