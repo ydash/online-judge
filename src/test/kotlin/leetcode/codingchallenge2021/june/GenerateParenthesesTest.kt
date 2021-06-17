@@ -10,10 +10,9 @@ class GenerateParenthesesTest : StringSpec({
         forAll(
             row(1, listOf("()")),
             row(3, listOf("((()))", "(()())", "(())()", "()(())", "()()()")),
-            row(4, listOf("(((())))","((()()))","((())())","((()))()","(()(()))","(()()())","(()())()","(())(())","(())()()","()((()))","()(()())","()(())()","()()(())","()()()()"))
         ) { num, expected ->
             val actual = GenerateParentheses.generateParenthesis(num)
-                actual shouldBe expected
+            actual shouldBe expected
         }
     }
 })
