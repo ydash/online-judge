@@ -1,24 +1,23 @@
 package leetcode.codingchallenge2021.june
 
 object NumberOfMatchingSubsequences {
-    fun numMatchingSubseq(s: String, words: Array<String>): Int = words.count { it.isSubsequenceOf(s) }
+    fun numMatchingSubseq(s: String, words: Array<String>): Int {
+        val dic = Array('z' - 'a' + 1) { ArrayDeque<String>() }
+        words.forEach { str ->
+            val i = str[0] - 'a'
+            dic[i].addLast(str.drop(1))
+        }
+        var count = 0
 
-    private fun String.isSubsequenceOf(that: String): Boolean =
-        if (this.length > that.length) false
-        else {
-            var i = 0
-            var j = 0
-            while (i < this.length && j < that.length) {
-                if (this[i] == that[j]) ++i
-                ++j
+        s.forEach { c ->
+            val queue = dic[c - 'a']
+            repeat(queue.size) {
+                val str = queue.removeFirst()
+                if (str.isEmpty()) ++count
+                else dic[str[0] - 'a'].addLast(str.drop(1))
             }
-            i == this.length
         }
 
-//    private tailrec fun String.isSubsequenceOf(that: String): Boolean = when {
-//        this.isEmpty() -> true
-//        that.isEmpty() -> false
-//        this[0] == that[0] -> this.drop(1).isSubsequenceOf(that.drop(1))
-//        else -> this.isSubsequenceOf(that.drop(1))
-//    }
+        return count
+    }
 }
