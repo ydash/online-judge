@@ -1,14 +1,15 @@
 package leetcode.codingchallenge2021.june
 
+import leetcode.util.DisjointSet
+
 object RedundantConnection {
     fun findRedundantConnection(edges: Array<IntArray>): IntArray {
-        val connected = Array(1001) { mutableSetOf(it) }
+        val disjointSet = DisjointSet(1001)
         var ans = intArrayOf()
 
         edges.forEach { (n1, n2) ->
-            if (connected[n1].contains(n2)) ans = intArrayOf(n1, n2)
-            val c = connected[n1] + connected[n2]
-            c.forEach { connected[it] += c }
+            if (disjointSet.same(n1, n2)) ans = intArrayOf(n1, n2)
+            else disjointSet.union(n1, n2)
         }
 
         return ans
