@@ -5,7 +5,7 @@ interface SegmentTree {
     val right: Int
     var value: Int
 
-    fun update(i: Int, newValue: Int): Int
+    fun update(i: Int, updateFunction: (Int) -> Int): Int
 
     fun sum(left: Int, right: Int): Int
 
@@ -14,12 +14,12 @@ interface SegmentTree {
         override val right: Int,
         override var value: Int,
         private val leftNode: SegmentTree,
-        private val rightNode: SegmentTree,
+        private val rightNode: SegmentTree
     ) : SegmentTree {
-        override fun update(i: Int, newValue: Int): Int {
+        override fun update(i: Int, updateFunction: (Int) -> Int): Int {
             val diff =
-                if (leftNode.left <= i && i <= leftNode.right) leftNode.update(i, newValue)
-                else rightNode.update(i, newValue)
+                if (leftNode.left <= i && i <= leftNode.right) leftNode.update(i, updateFunction)
+                else rightNode.update(i, updateFunction)
             this.value += diff
             return diff
         }
@@ -32,7 +32,8 @@ interface SegmentTree {
     }
 
     data class Leaf(override val left: Int, override val right: Int, override var value: Int) : SegmentTree {
-        override fun update(i: Int, newValue: Int): Int {
+        override fun update(i: Int, updateFunction: (Int) -> Int): Int {
+            val newValue = updateFunction(this.value)
             val diff = newValue - this.value
             this.value = newValue
             return diff
