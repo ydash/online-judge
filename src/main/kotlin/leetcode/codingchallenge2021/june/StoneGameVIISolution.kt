@@ -1,6 +1,6 @@
 package leetcode.codingchallenge2021.june
 
-object StoneGameVII {
+object StoneGameVIISolution {
     fun stoneGameVII(stones: IntArray): Int {
         val n = stones.size
         val currentDp = IntArray(n)
