@@ -4,26 +4,23 @@ object MaxSumOfRectangleNoLargerThanK {
     fun maxSumSubmatrix(matrix: Array<IntArray>, k: Int): Int {
         val m = matrix.size
         val n = matrix[0].size
-        val dp = Array(m) { Array(n) { IntArray(n) } }
-        var ans = k + 1
+        var ans = Int.MIN_VALUE
 
-        loop@ for (i in 0 until m) {
-            for (j in 0 until n) {
-                for (l in 0..j) {
-                    dp[i][j][l] = if (l == 0) matrix[i][j] else dp[i][j - 1][l - 1] + matrix[i][j]
-                    if (dp[i][j][l] <= k && (ans > k || k - dp[i][j][l] < k - ans)) ans = dp[i][j][l]
-                    if (ans == k) break@loop
+        for (l in 0 until m) {
+            val sums = IntArray(n)
+            for (r in l until m) {
+                (0 until n).forEach { sums[it] += matrix[r][it] }
+
+                val acc = sortedSetOf(0)
+                var s = 0
+                for (num in sums) {
+                    s += num
+                    val x = acc.ceiling(s - k)
+                    if (x != null) ans = maxOf(ans, s - x)
+                    acc += s
                 }
             }
-            for (x in 0 until i) {
-                for (y in 0 until n) {
-                    for (z in 0..y) {
-                        dp[x][y][z] += dp[i][y][z]
-                        if (dp[x][y][z] <= k && (ans > k || k - dp[x][y][z] < k - ans)) ans = dp[x][y][z]
-                        if (ans == k) break@loop
-                    }
-                }
-            }
+            if (ans == k) break
         }
 
         return ans
