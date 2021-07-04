@@ -7,7 +7,7 @@ class CountVowelsPermutation {
         val current = IntArray(NUM_OF_VOWELS)
         (0 until NUM_OF_VOWELS).forEach { current[it] = 1 }
 
-        (1 until n).forEach { i ->
+        repeat(n - 1) {
             (0 until NUM_OF_VOWELS).forEach {
                 prev[it] = current[it]
                 current[it] = 0
