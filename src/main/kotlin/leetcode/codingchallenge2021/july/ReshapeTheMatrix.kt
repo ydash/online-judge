@@ -9,12 +9,7 @@ class ReshapeTheMatrix {
 
         val ans = Array(r) { IntArray(c) }
         (0 until (r * c)).forEach {
-            val ar = it / n
-            val ac = it % n
-            val br = it / c
-            val bc = it % c
-
-            ans[br][bc] = mat[ar][ac]
+            ans[it / c][it % c] = mat[it / n][it % n]
         }
 
         return ans
