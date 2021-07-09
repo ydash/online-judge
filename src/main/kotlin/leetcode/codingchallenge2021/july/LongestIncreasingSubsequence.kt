@@ -1,27 +1,30 @@
 package leetcode.codingchallenge2021.july
 
-import java.util.TreeMap
-import java.util.TreeSet
-
 class LongestIncreasingSubsequence {
     fun lengthOfLIS(nums: IntArray): Int {
-        val cache = TreeMap<Int, TreeSet<Int>> { a, b -> b - a }
+        val subSeq = mutableListOf(nums[0])
 
-        nums.indices.reversed().forEach { i ->
-            val n = nums[i]
-            var count = 1
-            for ((c, set) in cache) {
-                if (set.ceiling(n + 1) != null) {
-                    count = c + 1
-                    break
-                }
-            }
-            when (val set = cache[count]) {
-                null -> cache += count to sortedSetOf(n)
-                else -> set += n
+        nums.drop(1).forEach { n ->
+            if (subSeq.last() < n) subSeq += n
+            else subSeq[binarySearch(subSeq, n)] = n
+        }
+
+        return subSeq.size
+    }
+
+    private fun binarySearch(lst: MutableList<Int>, n: Int): Int {
+        var left = 0
+        var right = lst.lastIndex
+
+        while (left < right) {
+            val mid = (left + right) / 2
+            when {
+                lst[mid] == n -> return mid
+                lst[mid] < n -> left = mid + 1
+                else -> right = mid
             }
         }
 
-        return cache.firstKey()
+        return left
     }
 }
