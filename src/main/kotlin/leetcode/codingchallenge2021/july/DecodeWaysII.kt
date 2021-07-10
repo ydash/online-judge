@@ -3,23 +3,24 @@ package leetcode.codingchallenge2021.july
 class DecodeWaysII {
     fun numDecodings(s: String): Int {
         if (s[0] == '0') return 0
-        val dp = LongArray(s.length + 1)
 
-        dp[0] = 1
-        dp[1] = if (s[0] == '*') 9 else 1
-        (2..s.length).forEach { i ->
-            val prev = s[i - 2]
-            val current = s[i - 1]
+        var prev: Long = 1
+        var current: Long = if (s[0] == '*') 9 else 1
+        (2..s.length).forEach {
+            var tmp = 0L
+            val sj = s[it - 2]
+            val si = s[it - 1]
 
-            if (current == '*') dp[i] += 9 * dp[i - 1]
-            else if (current > '0') dp[i] += dp[i - 1]
+            if (si == '*') tmp += 9 * current
+            else if (si > '0') tmp += current
 
-            dp[i] += dp[i - 2] * countPattern(prev, current)
+            tmp += prev * countPattern(sj, si)
 
-            dp[i] %= MOD
+            prev = current
+            current = tmp % MOD
         }
 
-        return dp.last().toInt()
+        return current.toInt()
     }
 
     private fun countPattern(prev: Char, current: Char): Int = when (prev) {
