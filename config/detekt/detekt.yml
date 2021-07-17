@@ -12,3 +12,5 @@ style:
   MaxLineLength:
     excludes:
       - '**/*Test.kt'
+  ReturnCount:
+    max: 3
