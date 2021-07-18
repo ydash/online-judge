@@ -1,5 +1,7 @@
 package leetcode.codingchallenge2021.june
 
+import leetcode.util.ListNode
+
 object ReversedLinkedListII {
     fun reverseBetween(head: ListNode?, left: Int, right: Int): ListNode? {
         if (left == right) return head
@@ -36,25 +38,5 @@ object ReversedLinkedListII {
             beforeLeft.next = tmp
             head
         } else tmp
-    }
-}
-
-class ListNode(var `val`: Int) {
-    var next: ListNode? = null
-
-    fun toList(): List<Int> {
-        val lst = mutableListOf<Int>()
-        var current: ListNode? = this
-        while (current != null) {
-            lst += current.`val`
-            current = current.next
-        }
-        return lst
-    }
-
-    companion object {
-        fun ofList(list: List<Int>): ListNode? =
-            if (list.isEmpty()) null
-            else ListNode(list[0]).apply { next = ofList(list.drop(1)) }
     }
 }

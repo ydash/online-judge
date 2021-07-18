@@ -4,6 +4,7 @@ import io.kotest.core.spec.style.StringSpec
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
 import io.kotest.matchers.shouldBe
+import leetcode.util.ListNode
 
 class ReversedLinkedListIITest : StringSpec({
     "test of Reversed Linked List II" {
