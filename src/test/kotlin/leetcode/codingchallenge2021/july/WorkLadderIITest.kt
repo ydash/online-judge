@@ -36,7 +36,3 @@ class WorkLadderIITest : StringSpec({
         }
     }
 })
-/*
-expected:<[["red", "ted", "tad", "tax"], ["red", "ted", "tex", "tax"], ["red", "rex", "tex", "tax"]]>
- but was:<[["red", "ted", "tad", "tax"], ["red", "ted", "tex", "tax"], ["red", "ted", "tex", "tax"], ["red", "rex", "tex", "tax"], ["red", "rex", "tex", "tax"]]>
- */
