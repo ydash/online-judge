@@ -1,6 +1,6 @@
 package leetcode.codingchallenge2021.july
 
-import java.util.*
+import java.util.LinkedList
 import kotlin.math.abs
 
 object FindKClosestElements {
