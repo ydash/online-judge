@@ -7,34 +7,17 @@ class ThreeSumClosestSolution {
         nums.sort()
         var minDiff = Int.MAX_VALUE
 
-        for (i in 0 until nums.size - 2) {
-            for (j in i + 1 until nums.size - 1) {
-                val x = target - (nums[i] + nums[j])
-                val diff = binarySearch(nums, x, j + 1, nums.lastIndex)
+        for (i in nums.indices) {
+            var left = i + 1
+            var right = nums.lastIndex
+            while (left < right) {
+                val diff = target - (nums[i] + nums[left] + nums[right])
                 minDiff = if (diff.absoluteValue < minDiff.absoluteValue) diff else minDiff
                 if (minDiff == 0) break
+                if (diff > 0) ++left else --right
             }
         }
 
         return target - minDiff
-    }
-
-    private fun binarySearch(nums: IntArray, target: Int, start: Int, last: Int): Int {
-        var left = start
-        var right = last
-        var minDiff = Int.MAX_VALUE
-
-        loop@ while (left <= right) {
-            val mid = (left + right) / 2
-            val diff = target - nums[mid]
-            minDiff = if (diff.absoluteValue < minDiff.absoluteValue) diff else minDiff
-            when {
-                diff == 0 -> break@loop
-                diff < 0 -> right = mid - 1
-                else -> left = mid + 1
-            }
-        }
-
-        return minDiff
     }
 }
