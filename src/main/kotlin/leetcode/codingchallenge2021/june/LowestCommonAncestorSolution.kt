@@ -1,7 +1,7 @@
 package leetcode.codingchallenge2021.june
 
 import leetcode.util.TreeNode
-import java.util.*
+import java.util.LinkedList
 
 object LowestCommonAncestorSolution {
     fun lowestCommonAncestor(root: TreeNode, p: TreeNode?, q: TreeNode?): TreeNode {
@@ -28,22 +28,23 @@ object LowestCommonAncestorSolution {
     }
 
     fun pathOf(current: TreeNode, rank: Int, target: Int, acc: LinkedList<Pair<Int, Int>>): LinkedList<Pair<Int, Int>> {
-        if (current.`val` == target) return acc
+        return if (current.`val` == target) acc
+        else {
+            if (current.left != null) {
+                acc.addLast(current.left!!.`val` to rank + 1)
+                pathOf(current.left!!, rank + 1, target, acc)
+                if (acc.last.first == target) return acc
+                acc.removeLast()
+            }
 
-        if (current.left != null) {
-            acc.addLast(current.left!!.`val` to rank + 1)
-            pathOf(current.left!!, rank + 1, target, acc)
-            if (acc.last.first == target) return acc
-            acc.removeLast()
+            if (current.right != null) {
+                acc.addLast(current.right!!.`val` to rank + 1)
+                pathOf(current.right!!, rank + 1, target, acc)
+                if (acc.last.first == target) return acc
+                acc.removeLast()
+            }
+
+            acc
         }
-
-        if (current.right != null) {
-            acc.addLast(current.right!!.`val` to rank + 1)
-            pathOf(current.right!!, rank + 1, target, acc)
-            if (acc.last.first == target) return acc
-            acc.removeLast()
-        }
-
-        return acc
     }
 }
