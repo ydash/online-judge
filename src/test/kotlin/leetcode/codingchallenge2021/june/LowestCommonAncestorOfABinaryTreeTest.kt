@@ -5,7 +5,7 @@ import io.kotest.data.blocking.forAll
 import io.kotest.data.row
 import io.kotest.matchers.shouldBe
 import leetcode.util.TreeNode
-import java.util.*
+import java.util.LinkedList
 
 class LowestCommonAncestorOfABinaryTreeTest : StringSpec({
     val root1 = TreeNode(3).apply {
