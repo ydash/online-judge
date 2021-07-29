@@ -8,10 +8,11 @@ class ZeroOneMatrix {
 
         for (i in mat.indices) {
             for (j in mat[i].indices) {
-                if (mat[i][j] == 0) ans[i][j] = 0
-                else {
-                    if (i > 0) ans[i][j] = minOf(ans[i][j], ans[i - 1][j] + 1)
-                    if (j > 0) ans[i][j] = minOf(ans[i][j], ans[i][j - 1] + 1)
+                when {
+                    mat[i][j] == 0 -> ans[i][j] = 0
+                    i > 0 && j > 0 -> ans[i][j] = minOf(ans[i][j - 1] + 1, ans[i - 1][j] + 1)
+                    i > 0 -> ans[i][j] = minOf(ans[i][j], ans[i - 1][j] + 1)
+                    j > 0 -> ans[i][j] = minOf(ans[i][j], ans[i][j - 1] + 1)
                 }
             }
         }
