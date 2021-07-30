@@ -1,56 +1,43 @@
 package leetcode.codingchallenge2021.july
 
-import java.util.Stack
-
 class MapSum {
+    val map = hashMapOf<String, Int>()
     val root = Trie()
 
-    fun insert(key: String, value: Int) = root.insert(key, value)
-
-    fun sum(prefix: String): Int = when (val root = root.find(prefix)) {
-        null -> 0
-        else -> {
-            var sum = 0
-            val stack = Stack<Trie>()
-            stack += root
-            while (stack.isNotEmpty()) {
-                val node = stack.pop()
-                if (node.isTerm()) sum += node.value()
-                node.next.forEach { (_, n) ->
-                    stack += n
-                }
-            }
-            sum
-        }
+    fun insert(key: String, value: Int) {
+        val delta = value - map.getOrDefault(key, 0)
+        map += key to value
+        root.insert(key, delta)
     }
 
-    class Trie(private var value: Int = 0, private var isTerm: Boolean = false) {
-        val next: HashMap<Char, Trie> = hashMapOf()
+    fun sum(prefix: String): Int = root.sum(prefix)
 
-        fun isTerm(): Boolean = isTerm
-        fun value(): Int = value
+    class Trie {
+        private val children: HashMap<Char, Trie> = hashMapOf()
+        private var value: Int = 0
 
-        fun insert(key: String, v: Int) {
-            var current = this
-            key.forEach { c ->
-                when (val node = current.next[c]) {
-                    null -> {
-                        val n = Trie()
-                        current.next += c to n
-                        current = n
-                    }
-                    else -> current = node
+        private fun find(prefix: String): Trie? = find(this, prefix)
+
+        fun insert(key: String, delta: Int) = insert(this, key, delta)
+
+        fun sum(prefix: String): Int = this.find(prefix)?.value ?: 0
+
+        companion object {
+            private fun find(node: Trie, prefix: String): Trie? {
+                var current = node
+                for (c in prefix) {
+                    current = current.children[c] ?: return null
+                }
+                return current
+            }
+
+            private fun insert(node: Trie, key: String, delta: Int) {
+                var current = node
+                key.forEach { c ->
+                    current = current.children.getOrPut(c) { Trie() }
+                    current.value += delta
                 }
             }
-            current.value = v
-            current.isTerm = true
         }
-
-        fun find(prefix: String): Trie? =
-            if (prefix.isEmpty()) this
-            else when (val n = next[prefix.first()]) {
-                null -> null
-                else -> n.find(prefix.drop(1))
-            }
     }
 }
