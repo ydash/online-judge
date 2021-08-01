@@ -10,7 +10,10 @@ class TrappingRainWaterTest : StringSpec({
         forAll(
             row(intArrayOf(0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1), 6),
             row(intArrayOf(4, 2, 0, 3, 2, 5), 9),
-            row(intArrayOf(), 0)
+            row(intArrayOf(), 0),
+            row(intArrayOf(1), 0),
+            row(intArrayOf(1, 5), 0),
+            row(intArrayOf(3, 1, 5), 2)
         ) { height, expected ->
             TrappingRainWater().trap(height) shouldBe expected
         }
